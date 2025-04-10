@@ -1,0 +1,14 @@
+#page-title { 
+  text-align: center;
+}
+.highlight {
+  color: green;
+}
+a:hover {                
+  color: red;                              
+  text-decoration: underline;
+}       
+
+img:hover {
+  opacity: 0.7;
+}  
