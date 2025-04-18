@@ -1,0 +1,28 @@
+import time
+
+altitude = 0
+speed = 0
+
+print("🛫 Welcome to 阿聯酋航空 !")
+print("Commands: 'up' = increase altitude, 'down' = decrease altitude, 'faster' = increase speed, 'slower' = decrease speed, 'exit' = quit\n")
+
+while True:
+    command = input("Enter command: ").lower()
+    
+    if command == "up":
+        altitude += 100
+    elif command == "down":
+        altitude = max(0, altitude - 100)
+    elif command == "faster":
+        speed += 50
+    elif command == "slower":
+        speed = max(0, speed - 50)
+    elif command == "exit":
+        print("🛬 Landing... Goodbye, pilot!")
+        break
+    else:
+        print("Invalid command! Try again.")
+        continue
+
+    print(f"✈️  Altitude: {altitude} ft | Speed: {speed} km/h\n")
+    time.sleep(0.5)
