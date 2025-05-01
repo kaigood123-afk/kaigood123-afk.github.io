@@ -1,0 +1,64 @@
+import os
+import time
+import random
+import keyboard
+
+# Game settings
+WIDTH = 20
+HEIGHT = 10
+player_pos = WIDTH // 2
+block_pos = [random.randint(0, WIDTH - 1), 0]  # [x, y]
+score = 0
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def draw_game():
+    for y in range(HEIGHT):
+        line = ""
+        for x in range(WIDTH):
+            if x == player_pos and y == HEIGHT - 1:
+                line += "A"  # Player
+            elif x == block_pos[0] and y == block_pos[1]:
+                line += "X"  # Falling block
+            else:
+                line += "."
+        print(line)
+    print(f"Score: {score}")
+
+def update_block():
+    global score
+    block_pos[1] += 1
+    if block_pos[1] >= HEIGHT:
+        block_pos[1] = 0
+        block_pos[0] = random.randint(0, WIDTH - 1)
+        score += 1  # Gain score when block is dodged
+
+def check_collision():
+    return block_pos[0] == player_pos and block_pos[1] == HEIGHT - 1
+
+# Game loop
+try:
+    while True:
+        clear_screen()
+
+        # Player movement
+        if keyboard.is_pressed('left') and player_pos > 0:
+            player_pos -= 1
+        elif keyboard.is_pressed('right') and player_pos < WIDTH - 1:
+            player_pos += 1
+
+        draw_game()
+
+        # Collision check
+        if check_collision():
+            print("Game Over!")
+            print(f"Final Score: {score}")
+            break
+
+        update_block()
+        time.sleep(0.2)
+
+except KeyboardInterrupt:
+    print("\nGame exited.")
+a/index
